@@ -47,7 +47,8 @@ void loop() {
 }
 
 ## Penjelasan Tiap Baris Kode
-
+```
+\
 | No | Baris Kode | Penjelasan |
 |----|------------|------------|
 | 1 | `int timer = 500;` | Mendeklarasikan variabel `timer` dengan nilai 500 milidetik sebagai waktu jeda antar pergantian nyala LED. Nilai ini menentukan seberapa cepat atau lambat pola LED berganti. |
