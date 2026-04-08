@@ -1,13 +1,14 @@
-##Pertanyaan
+## Pertanyaan
+4. Buatkan program agar LED menyala tiga LED kanan dan tiga LED kiri secara bergantian dan berikan penjelasan disetiap baris kode nya dalam bentuk README.md!
 
-#Jawaban
+## Jawaban
 Menggunakan 6 LED yang terhubung ke pin digital 2 sampai 7 pada Arduino Uno.  
 LED dibagi menjadi dua kelompok:
 
 - 3 LED kiri : pin 2, 3, 4
 - 3 LED kanan : pin 5, 6, 7
 
-# Kode Program
+## Kode Program
 
 ```cpp
 int timer = 500; // waktu jeda antar pergantian LED
