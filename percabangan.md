@@ -1,0 +1,70 @@
+#Pertanyaan Percabangan
+4. Jika program yang dibuat memiliki alur mati → lambat → cepat → reset (mati), ubah menjadi LED tidak langsung reset → tetapi berubah dari cepat → sedang → mati dan berikan penjelasan disetiap baris kode nya dalam bentuk README.md!
+
+##Jawaban : 
+```cpp
+const int ledPin = 6;      // Menentukan LED terhubung ke pin digital 6
+int timeDelay = 100;       // Delay awal dibuat cepat (100 ms)
+int stage = 0;             // Variabel tahapan: 0 = cepat, 1 = sedang, 2 = mati
+
+void setup() {
+  pinMode(ledPin, OUTPUT); // Mengatur pin LED sebagai output
+}
+
+void loop() {
+  if (stage == 0) {
+    digitalWrite(ledPin, HIGH);   // Menyalakan LED
+    delay(timeDelay);             // Menunggu 100 ms
+    digitalWrite(ledPin, LOW);    // Mematikan LED
+    delay(timeDelay);             // Menunggu 100 ms
+
+    timeDelay += 100;             // Menambah delay agar kedipan melambat
+    if (timeDelay >= 500) {       // Jika delay sudah mencapai 500 ms
+      stage = 1;                  // Pindah ke tahap sedang
+    }
+
+  } else if (stage == 1) {
+    digitalWrite(ledPin, HIGH);   // Menyalakan LED
+    delay(timeDelay);             // Menunggu dengan delay sedang
+    digitalWrite(ledPin, LOW);    // Mematikan LED
+    delay(timeDelay);             // Menunggu dengan delay sedang
+
+    stage = 2;                    // Pindah ke tahap mati
+
+  } else if (stage == 2) {
+    digitalWrite(ledPin, LOW);    // Memastikan LED dalam kondisi mati
+    while (true) {
+      // Program berhenti di sini agar LED tetap mati
+    }
+  }
+}
+```
+\
+
+##Penjelasan Program
+
+| No | Baris Kode | Penjelasan |
+|----|------------|------------|
+| 1 | `const int ledPin = 6;` | Mendeklarasikan konstanta `ledPin` dengan nilai 6, yang berarti LED terhubung ke pin digital 6 pada Arduino. |
+| 2 | `int timeDelay = 100;` | Mendeklarasikan variabel `timeDelay` dengan nilai awal 100 milidetik. Nilai ini digunakan untuk mengatur waktu tunda sehingga LED mulai berkedip cepat. |
+| 3 | `int stage = 0;` | Mendeklarasikan variabel `stage` sebagai penanda tahapan program. Nilai `0` untuk tahap cepat, `1` untuk tahap sedang, dan `2` untuk tahap mati. |
+| 4 | `void setup() {` | Menandai awal fungsi `setup()`, yaitu fungsi yang hanya dijalankan satu kali saat Arduino dinyalakan. |
+| 5 | `pinMode(ledPin, OUTPUT);` | Mengatur pin 6 sebagai output agar Arduino dapat mengirim sinyal untuk menyalakan atau mematikan LED. |
+| 7 | `void loop() {` | Menandai awal fungsi `loop()`, yaitu fungsi yang akan dijalankan berulang terus-menerus selama Arduino aktif. |
+| 8 | `if (stage == 0) {` | Mengecek apakah program sedang berada pada tahap 0. Jika benar, maka program menjalankan tahap pertama yaitu LED berkedip cepat. |
+| 9 | `digitalWrite(ledPin, HIGH);` | Memberikan sinyal HIGH ke pin 6 sehingga LED menyala. |
+| 10 | `delay(timeDelay);` | Menunda eksekusi program selama `timeDelay` milidetik. Pada awal program nilainya 100 ms, sehingga LED menyala dalam waktu singkat. |
+| 11 | `digitalWrite(ledPin, LOW);` | Memberikan sinyal LOW ke pin 6 sehingga LED mati. |
+| 12 | `delay(timeDelay);` | Menunda eksekusi program kembali selama `timeDelay` milidetik saat LED dalam kondisi mati. |
+| 13 | `timeDelay += 100;` | Menambah nilai `timeDelay` sebesar 100 ms setelah satu siklus kedip selesai, sehingga kecepatan kedip LED menjadi lebih lambat secara bertahap. |
+| 14 | `if (timeDelay >= 500) {` | Mengecek apakah nilai `timeDelay` sudah mencapai 500 ms. Nilai ini dijadikan batas untuk berpindah dari tahap cepat ke tahap sedang. |
+| 15 | `stage = 1;` | Jika `timeDelay` sudah mencapai 500 ms, maka nilai `stage` diubah menjadi 1 agar program berpindah ke tahap sedang. |
+| 16 | `} else if (stage == 1) {` | Jika tahap pertama selesai dan `stage` bernilai 1, maka program masuk ke tahap kedua, yaitu LED berkedip sedang. |
+| 17 | `digitalWrite(ledPin, HIGH);` | Menyalakan LED pada tahap sedang. |
+| 18 | `delay(timeDelay);` | Menunda program selama `timeDelay` milidetik. Pada tahap ini nilainya sekitar 500 ms, sehingga kedipan LED terlihat lebih lambat atau sedang. |
+| 19 | `digitalWrite(ledPin, LOW);` | Mematikan LED pada tahap sedang. |
+| 20 | `delay(timeDelay);` | Menunda program kembali selama `timeDelay` milidetik saat LED mati pada tahap sedang. |
+| 21 | `stage = 2;` | Setelah satu siklus kedip sedang selesai, program mengubah `stage` menjadi 2 agar masuk ke tahap akhir, yaitu mati total. |
+| 22 | `} else if (stage == 2) {` | Mengecek apakah program sudah berada pada tahap ketiga. Jika benar, maka LED akan dimatikan sepenuhnya. |
+| 23 | `digitalWrite(ledPin, LOW);` | Memastikan LED benar-benar dalam kondisi mati. |
+| 24 | `while (true) {` | Membuat perulangan tak hingga agar program berhenti di tahap ini dan tidak kembali mengulang dari awal. |
